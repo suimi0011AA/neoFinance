@@ -19,6 +19,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
 
   const handleNext = () => {
     if (step === totalSteps - 1) {
+      console.log('Completing onboarding with data:', data);
       onComplete(data);
     } else {
       nextStep();

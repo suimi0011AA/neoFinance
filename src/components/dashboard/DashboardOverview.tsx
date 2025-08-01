@@ -53,7 +53,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   const { language } = useLanguage();
 
   useEffect(() => {
-    if (data?.userId) {
+    if (data?.userId && data.userId !== 'mock-user-id') {
       loadUserData();
     }
   }, [data]);

@@ -74,7 +74,7 @@ export const useOnboarding = () => {
   const isStepValid = (currentStep: number): boolean => {
     switch (currentStep) {
       case 0:
-        return data.personalInfo.name && data.personalInfo.email && data.personalInfo.city;
+        return !!(data.personalInfo.name && data.personalInfo.email && data.personalInfo.city);
       case 1:
         return data.financialInfo.monthlyIncome > 0;
       case 2:

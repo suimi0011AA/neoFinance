@@ -88,11 +88,11 @@ function App() {
   const renderContent = () => {
     switch (activeSection) {
       case 'dashboard':
-        return <DashboardOverview data={mockDashboardData} />;
+        return <DashboardOverview data={{...mockDashboardData, userData}} userData={userData} />;
       case 'goals':
-        return <GoalsManagement />;
+        return <GoalsManagement userData={userData} />;
       case 'analytics':
-        return <AnalyticsDashboard />;
+        return <AnalyticsDashboard userData={userData} />;
       case 'spending':
         return <SpendingAnalysis />;
       case 'ai-chat':
@@ -103,7 +103,7 @@ function App() {
         return <NeoFinanceAgent userData={userData} />;
 
       default:
-        return <DashboardOverview data={mockDashboardData} />;
+        return <DashboardOverview data={{...mockDashboardData, userData}} userData={userData} />;
     }
   };
 
@@ -123,18 +123,30 @@ function App() {
     >
       <Header
         onMenuClick={() => setSidebarOpen(true)}
-        userName={userData?.personalInfo?.name || 'Abdullah'}
+        userData={userData}
       />
 
       <div className="flex">
-        <Sidebar
-          isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
-          activeSection={activeSection}
-          onSectionChange={setActiveSection}
-        />
+        <div className="hidden lg:block">
+          <Sidebar
+            isOpen={true}
+            onClose={() => setSidebarOpen(false)}
+            activeSection={activeSection}
+            onSectionChange={setActiveSection}
+          />
+        </div>
+        
+        {/* Mobile Sidebar */}
+        {sidebarOpen && (
+          <Sidebar
+            isOpen={sidebarOpen}
+            onClose={() => setSidebarOpen(false)}
+            activeSection={activeSection}
+            onSectionChange={setActiveSection}
+          />
+        )}
 
-        <main className="flex-1 p-4 lg:p-8">
+        <main className="flex-1 p-4 lg:p-8 lg:ml-0">
           <motion.div
             key={activeSection}
             initial={{ opacity: 0, y: 20 }}
